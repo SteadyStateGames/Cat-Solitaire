@@ -4,7 +4,7 @@
 // Incrementing CACHE_VERSION will kick off the install event and force
 // previously cached resources to be updated from the network.
 /** @type {string} */
-const CACHE_VERSION = '1791045873|2250221|folder-entry-v1';
+const CACHE_VERSION = '1791050032|1943097|folder-entry-v1';
 /** @type {string} */
 const CACHE_PREFIX = 'Cat Solitaire fo-sw-cache-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
