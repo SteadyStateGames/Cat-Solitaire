@@ -4,7 +4,7 @@
 // Incrementing CACHE_VERSION will kick off the install event and force
 // previously cached resources to be updated from the network.
 /** @type {string} */
-const CACHE_VERSION = '1791005721|2088376';
+const CACHE_VERSION = '1791005721|2088376|folder-entry-v1';
 /** @type {string} */
 const CACHE_PREFIX = 'Cat Solitaire fo-sw-cache-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
@@ -122,6 +122,15 @@ self.addEventListener(
 					}
 				}
 				let cached = await cache.match(event.request);
+                // Cat Solitaire: folder URLs use the cached entry page.
+                if (cached == null && isNavigate) {
+                    const requestURL = new URL(event.request.url);
+                    const entryURL = new URL(CACHED_FILES[0], self.registration.scope);
+                    const folderURL = new URL('./', entryURL);
+                    if (requestURL.origin === entryURL.origin && requestURL.pathname === folderURL.pathname) {
+                        cached = await cache.match(entryURL.href);
+                    }
+                }
 				if (cached != null) {
 					if (ENSURE_CROSSORIGIN_ISOLATION_HEADERS) {
 						cached = ensureCrossOriginIsolationHeaders(cached);
